@@ -23,63 +23,76 @@ class _PyramidScreenState extends State<PyramidScreen> {
     });
   }
 
+  InputDecoration _inputStyle(String label, IconData icon) {
+    return InputDecoration(
+      labelText: label,
+      labelStyle: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF6B7280)),
+      prefixIcon: Icon(icon, color: const Color(0xFF2F80ED)), // Vibrant Blue
+      filled: true,
+      fillColor: Colors.white,
+      contentPadding: const EdgeInsets.symmetric(vertical: 18),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(20), borderSide: BorderSide.none),
+      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(20), borderSide: const BorderSide(color: Color(0xFF2F80ED), width: 2)),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(title: const Text('Hitung Piramida')),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: _sisiController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: 'Panjang Sisi Alas',
-                prefixIcon: const Icon(Icons.straighten),
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-              ),
-            ),
-            const SizedBox(height: 16),
-            TextField(
-              controller: _tinggiController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: 'Tinggi Piramida',
-                prefixIcon: const Icon(Icons.height),
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-              ),
-            ),
-            const SizedBox(height: 24),
-            SizedBox(
-              width: double.infinity,
-              height: 50,
-              child: ElevatedButton(
-                onPressed: _hitung,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.orange,
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                ),
-                child: const Text('Hitung Sekarang', style: TextStyle(fontSize: 18)),
-              ),
-            ),
-            const SizedBox(height: 30),
-            if (_hasil.isNotEmpty)
-              Card(
-                color: Colors.orange[50],
-                elevation: 0,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Text(
-                    _hasil, 
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.deepOrange),
-                    textAlign: TextAlign.center,
+      body: Container(
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFFF1F8FF), Color(0xFFCBE3FB)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              children: [
+                TextField(controller: _sisiController, keyboardType: TextInputType.number, decoration: _inputStyle('Panjang Sisi Alas', Icons.straighten)),
+                const SizedBox(height: 16),
+                TextField(controller: _tinggiController, keyboardType: TextInputType.number, decoration: _inputStyle('Tinggi Piramida', Icons.height)),
+                const SizedBox(height: 30),
+                SizedBox(
+                  width: double.infinity,
+                  height: 60,
+                  child: ElevatedButton(
+                    onPressed: _hitung,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF0A194A), // Deep Blue dari referensi
+                      foregroundColor: Colors.white,
+                      elevation: 10,
+                      shadowColor: const Color(0xFF0A194A).withOpacity(0.5),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                    ),
+                    child: const Text('Hitung Sekarang', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                   ),
                 ),
-              ),
-          ],
+                const SizedBox(height: 30),
+                if (_hasil.isNotEmpty)
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(24.0),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(24),
+                      boxShadow: [BoxShadow(color: const Color(0xFF2F80ED).withOpacity(0.15), blurRadius: 20, spreadRadius: 2)],
+                    ),
+                    child: Text(
+                      _hasil, 
+                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: Color(0xFF0A194A), height: 1.5),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+              ],
+            ),
+          ),
         ),
       ),
     );

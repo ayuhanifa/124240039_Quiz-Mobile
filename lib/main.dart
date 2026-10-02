@@ -15,12 +15,14 @@ class MyApp extends StatelessWidget {
       title: 'Quiz 4 App',
       theme: ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        fontFamily: 'Roboto', // Font standar yang bersih
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF0A194A)),
         appBarTheme: const AppBarTheme(
           centerTitle: true,
           elevation: 0,
-          backgroundColor: Colors.deepPurple,
-          foregroundColor: Colors.white,
+          backgroundColor: Color.fromARGB(0, 156, 176, 235), // Transparan agar menyatu dengan gradasi
+          foregroundColor: Color(0xFF0A194A), // Deep Blue Text
+          titleTextStyle: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Color(0xFF0A194A)),
         ),
       ),
       home: const MainScreen(),

@@ -29,66 +29,87 @@ class _DayScreenState extends State<DayScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(title: const Text('Cek Hari')),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'Masukkan angka 1 sampai 7',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 20),
-            TextField(
-              controller: _inputController,
-              keyboardType: TextInputType.number,
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              decoration: InputDecoration(
-                hintText: 'Contoh: 1',
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-              ),
-            ),
-            const SizedBox(height: 24),
-            SizedBox(
-              width: double.infinity,
-              height: 50,
-              child: ElevatedButton(
-                onPressed: _cekHari,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.redAccent,
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      body: Container(
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFFF1F8FF), Color(0xFFCBE3FB)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  'Masukkan angka 1 sampai 7',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: Color(0xFF0A194A)),
                 ),
-                child: const Text('Cari Hari', style: TextStyle(fontSize: 18)),
-              ),
-            ),
-            const SizedBox(height: 40),
-            if (_hasilHari.isNotEmpty)
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(30),
-                decoration: BoxDecoration(
-                  color: Colors.red[50],
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: Colors.redAccent.withOpacity(0.5), width: 2),
+                const SizedBox(height: 24),
+                TextField(
+                  controller: _inputController,
+                  keyboardType: TextInputType.number,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Color(0xFF0A194A)),
+                  decoration: InputDecoration(
+                    hintText: 'Contoh: 1',
+                    hintStyle: TextStyle(color: Colors.grey.shade400),
+                    filled: true,
+                    fillColor: Colors.white,
+                    contentPadding: const EdgeInsets.symmetric(vertical: 20),
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(24), borderSide: BorderSide.none),
+                    focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(24), borderSide: const BorderSide(color: Color(0xFF2F80ED), width: 2)),
+                  ),
                 ),
-                child: Column(
-                  children: [
-                    const Text('Hari:', style: TextStyle(fontSize: 16, color: Colors.grey)),
-                    Text(
-                      _hasilHari,
-                      style: TextStyle(
-                        fontSize: 32, 
-                        fontWeight: FontWeight.bold, 
-                        color: _hasilHari == 'Input Tidak Valid!' ? Colors.red : Colors.deepPurple
-                      ),
+                const SizedBox(height: 30),
+                SizedBox(
+                  width: double.infinity,
+                  height: 60,
+                  child: ElevatedButton(
+                    onPressed: _cekHari,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF0A194A), // Deep Blue
+                      foregroundColor: Colors.white,
+                      elevation: 10,
+                      shadowColor: const Color(0xFF0A194A).withOpacity(0.5),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                     ),
-                  ],
+                    child: const Text('Cari Hari', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  ),
                 ),
-              ),
-          ],
+                const SizedBox(height: 40),
+                if (_hasilHari.isNotEmpty)
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(30),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(24),
+                      boxShadow: [BoxShadow(color: const Color(0xFF2F80ED).withOpacity(0.15), blurRadius: 20, spreadRadius: 5)],
+                    ),
+                    child: Column(
+                      children: [
+                        const Text('Hari:', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF6B7280))),
+                        const SizedBox(height: 8),
+                        Text(
+                          _hasilHari,
+                          style: TextStyle(
+                            fontSize: 38, 
+                            fontWeight: FontWeight.w900, 
+                            color: _hasilHari == 'Input Tidak Valid!' ? Colors.redAccent : const Color(0xFF0A194A)
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+              ],
+            ),
+          ),
         ),
       ),
     );
